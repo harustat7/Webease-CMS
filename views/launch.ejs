@@ -1,0 +1,88 @@
+<%include('./partials/header')%>
+<head>
+    <title>Launch WebEase!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto:wght@100..900&family=SUSE:wght@100..800&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white">
+
+    <!-- Container with background image -->
+    <div class="relative h-screen bg-cover bg-no-repeat" style="background-image: url('/images/launchbackground.jpg'); filter: blur(3px); z-index: -1;"></div>
+
+    <div class="absolute inset-0 flex justify-center items-center text-center px-4">
+        <!-- Content Box -->
+        <div class="max-w-lg w-full space-y-6">
+            <h1 class="text-5xl font-extrabold text-white">Launch your WebEase! Site</h1>
+            <p class="text-lg text-white">Build fully functional WebEase! Websites and experience the world’s best Content Management System for FREE.</p>
+
+            <!-- Domain Input and Button -->
+            <input class="w-full py-2 px-4 rounded-lg bg-gray-800 text-white placeholder-gray-400" type="text" id="domainInput" placeholder="Enter Domain Name">
+            <!-- <input class="w-full py-2 rounded-lg bg-blue-600 text-white font-semibold cursor-pointer hover:bg-blue-700 transition duration-200" type="button" value="Launch Now"> -->
+            <button onclick="checkDomainAvailability()" class="bg-blue-600 px-6 py-2 rounded hover:bg-blue-700 transition">Launch Now</button>
+            <p id="message" class="mt-4 text-white text-md"></p>
+        </div>
+    </div>
+
+    <script>
+        async function checkDomainAvailability() {
+            const domainInput = document.getElementById('domainInput');
+            const message = document.getElementById('message');
+    
+            if (!domainInput || !message) {
+                console.error("Input or message element not found.");
+                return;
+            }
+    
+            message.classList.remove("text-red-500", "text-green-400", "text-yellow-400");
+    
+            const userInput = domainInput.value.trim();
+            if (!userInput) {
+                message.textContent = "⚠️ Please enter a domain name.";
+                message.classList.add("text-yellow-400");
+                return;
+            }
+    
+            // Add '.com' if not present
+            const domain = userInput.includes('.') ? userInput : `${userInput}.com`;
+            message.textContent = "⏳ Checking availability...";
+            message.classList.add("text-yellow-400");
+    
+            try {
+                console.log(`Checking domain: ${domain}`);
+    
+                const response = await fetch(`https://api.api-ninjas.com/v1/domain?domain=${domain}`, {
+                    headers: {
+                        'X-Api-Key': 'YOUR_API_KEY_HERE' // 🔁 Replace with your actual key
+                    }
+                });
+    
+                console.log("Response status:", response.status);
+    
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+    
+                const data = await response.json();
+                console.log("API response data:", data);
+    
+                message.classList.remove("text-yellow-400");
+    
+                if (data.is_available) {
+                    message.textContent = `✅ ${domain} is available!`;
+                    message.classList.add("text-green-400");
+                } else {
+                    message.textContent = `❌ ${domain} is already taken.`;
+                    message.classList.add("text-red-500");
+                }
+    
+            } catch (error) {
+                console.error("Error checking domain:", error);
+                message.textContent = "⚠️ Error checking domain availability.";
+                message.classList.add("text-red-500");
+            }
+        }
+    </script>
+    
+</body>
+<%include('./partials/footer')%>

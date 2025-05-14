@@ -48,11 +48,10 @@ module.exports.loginUser=async function(req,res){
             let token=generatetoken(user);
             res
             .cookie("token",token)
-            .redirect("/launch");
+            .redirect(`/launch?email=${encodeURIComponent(email)}`);
         }
         else{
             return res.send("Email or password incorrect");
         }
-    });
-    
+    });   
 }

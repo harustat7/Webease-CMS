@@ -1,0 +1,121 @@
+<% include('./partials/header') %>
+
+<head>
+  <title>Template Editor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-6">
+
+  <h1 class="text-3xl font-bold mb-4">Edit Your Template</h1>
+
+  <div class="border border-gray-400 rounded-lg overflow-hidden h-[80vh]">
+    <iframe id="templateFrame" src="/templates/Impact/index.html" class="w-full h-full"></iframe>
+  </div>
+
+  <div class="mt-4 flex gap-4">
+    <button id="saveBtn" class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">Save Changes</button>
+    <button id="launchBtn" class="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Launch Website</button>
+  </div>
+
+  <script>
+const iframe = document.getElementById('templateFrame');
+
+// When iframe loads
+iframe.onload = function () {
+  const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+  // Make text elements editable
+  const editableTags = ['p', 'h1', 'h2', 'h3', 'h4', 'span', 'div', 'strong', 'em'];
+  editableTags.forEach(tag => {
+    const elements = iframeDoc.getElementsByTagName(tag);
+    for (let el of elements) {
+      el.contentEditable = true;
+      el.style.outline = '1px dashed lightgray'; // Visual cue it's editable
+    }
+  });
+
+  // Allow changing images
+  const images = iframeDoc.getElementsByTagName('img');
+  for (let img of images) {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'image/*';
+      fileInput.onchange = function (e) {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          img.src = event.target.result; // Replace image source
+        };
+        reader.readAsDataURL(file);
+      };
+      fileInput.click();
+    });
+  }
+
+  // Allow changing videos
+  const videos = iframeDoc.getElementsByTagName('video');
+  for (let video of videos) {
+    video.style.cursor = 'pointer';
+    video.addEventListener('click', () => {
+      const fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = 'video/*';
+      fileInput.onchange = function (e) {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          video.src = event.target.result; // Replace video source
+          video.load(); // Reload the video
+        };
+        reader.readAsDataURL(file);
+      };
+      fileInput.click();
+    });
+  }
+};
+
+// Add Save Changes functionality
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const iframe = document.getElementById('templateFrame');
+  const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+  // Get the full updated HTML content from iframe
+  const updatedHtml = iframeDoc.documentElement.outerHTML;
+
+  // Prepare data to send
+  const data = {
+    email: localStorage.getItem('userEmail'),  // Get the logged-in user's email
+    updatedHtml: updatedHtml,
+    templateName: 'Impact'   // OR dynamically pass the current template name
+  };
+
+  // Send a POST request to the backend
+  fetch('/api/save-template', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to save template');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Template saved successfully:', data);
+    alert('Changes saved successfully!');
+  })
+  .catch(error => {
+    console.error('Error saving template:', error);
+    alert('Failed to save changes.');
+  });
+});
+
+</script>
+
+<% include('./partials/footer') %>

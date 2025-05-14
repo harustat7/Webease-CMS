@@ -28,6 +28,14 @@
         async function checkDomainAvailability() {
             const domainInput = document.getElementById('domainInput');
             const message = document.getElementById('message');
+            const urlParams = new URLSearchParams(window.location.search);
+            let userEmail = urlParams.get('email');
+
+            if(userEmail){
+                userEmail = decodeURIComponent(userEmail);
+                localStorage.setItem('userEmail',userEmail);
+                console.log('User email saved:', userEmail);
+            }
     
             if (!domainInput || !message) {
                 console.error("Input or message element not found.");
@@ -43,7 +51,6 @@
                 return;
             }
     
-            // Add '.com' if not present
             const domain = userInput.includes('.') ? userInput : `${userInput}.com`;
             message.textContent = "⏳ Checking availability...";
             message.classList.add("text-yellow-400");
@@ -53,7 +60,7 @@
     
                 const response = await fetch(`https://api.api-ninjas.com/v1/domain?domain=${domain}`, {
                     headers: {
-                        'X-Api-Key': 'YOUR_API_KEY_HERE' // 🔁 Replace with your actual key
+                        'X-Api-Key': 'XL3KK3aBzc8kRkTRq1qa6A==NGSdLJ4j4bm6jqUw' // 🔁 Replace with your actual key
                     }
                 });
     
@@ -68,9 +75,13 @@
     
                 message.classList.remove("text-yellow-400");
     
-                if (data.is_available) {
+                if (data.available) {
                     message.textContent = `✅ ${domain} is available!`;
                     message.classList.add("text-green-400");
+
+                setTimeout(() => {
+                window.location.href = `/selecttemplate?domain=${encodeURIComponent(domain)}`;
+                }, 1000);
                 } else {
                     message.textContent = `❌ ${domain} is already taken.`;
                     message.classList.add("text-red-500");
@@ -82,7 +93,6 @@
                 message.classList.add("text-red-500");
             }
         }
-    </script>
-    
+    </script>  
 </body>
 <%include('./partials/footer')%>

@@ -1,0 +1,56 @@
+<% include('./partials/header') %>
+<head>
+    <title>Select a Template - WebEase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto:wght@100..900&family=SUSE:wght@100..800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans text-gray-900">
+
+    <div class="py-8">
+        <h1 class="text-4xl font-bold text-center mb-10">Select a Template</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-10">
+            <!-- Business Template -->
+            <a href="/businesstemplates" class="block">
+            <div class="border rounded-lg overflow-hidden shadow-lg bg-white">
+                <img src="/images/business page.jpg" alt="Business Template" class="w-full h-48 object-cover">
+                <h2 class="text-xl font-semibold text-center py-4">Business Templates</h2>
+            </div>
+            </a>
+
+            <!-- Ecommerce Template -->
+            <a href="/ecommercetemplates" class="block">
+            <div class="border rounded-lg overflow-hidden shadow-lg bg-white">
+                <img src="/images/ecommerce page.jpg" alt="Ecommerce Template" class="w-full h-48 object-cover">
+                <h2 class="text-xl font-semibold text-center py-4">Ecommerce Websites</h2>
+            </div>
+            </a>
+
+            <!-- Education Template -->
+            <a href="/educationaltemplates" class="block">
+            <div class="border rounded-lg overflow-hidden shadow-lg bg-white">
+                <img src="/images/education page.png" alt="Education Template" class="w-full h-48 object-cover">
+                <h2 class="text-xl font-semibold text-center py-4">Educational Websites</h2>
+            </div>
+            </a>
+
+            <!-- Travel & Tourism Template -->
+            <a href="/traveltemplates" class="block">
+            <div class="border rounded-lg overflow-hidden shadow-lg bg-white">
+                <img src="/images/travel page.jpg" alt="Travel Template" class="w-full h-48 object-cover">
+                <h2 class="text-xl font-semibold text-center py-4">Travel & Tourism</h2>
+            </div>
+            </a>
+
+            <!-- Blogging Template -->
+            <a href="/blogtemplates" class="block">
+            <div class="border rounded-lg overflow-hidden shadow-lg bg-white">
+                <img src="/images/blog page.jpg" alt="Blogging Template" class="w-full h-48 object-cover">
+                <h2 class="text-xl font-semibold text-center py-4">Blogging Websites</h2>
+            </div>
+            </a>
+        </div>
+    </div>
+
+</body>
+<% include('./partials/footer') %>

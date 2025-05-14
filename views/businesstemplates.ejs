@@ -1,0 +1,85 @@
+<% include('./partials/header') %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Templates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <div class="max-w-7xl mx-auto py-10 px-4">
+        <h1 class="text-4xl font-bold text-center mb-10">Business Templates</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Impact Template -->
+            <div class="border rounded-lg overflow-hidden shadow-lg bg-white">
+                <img src="/images/Screenshot (36).png" alt="Impact Template" class="w-full h-48 object-cover">
+                <div class="p-4 text-center">
+                    <h2 class="text-2xl font-semibold mb-2">Impact</h2>
+                    <a href="/templates/Impact/index.html" target="_blank" class="inline-block mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                        Preview
+                    </a>
+
+                    <a href="#" onclick="selectTemplate('Business', 'Impact'); return false;" class="mt-2 inline-block px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
+                        Select
+                    </a>                    
+                </div>
+            </div>
+
+            <!-- Append Template -->
+            <div class="border rounded-lg overflow-hidden shadow-lg bg-white">
+                <img src="/images/Screenshot (37).png" alt="Append Template" class="w-full h-48 object-cover">
+                <div class="p-4 text-center">
+                    <h2 class="text-2xl font-semibold mb-2">Append</h2>
+                    <a href="/templates/Append business template 2/Append/index.html" target="_blank" class="inline-block mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                        Preview
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nova Template -->
+            <div class="border rounded-lg overflow-hidden shadow-lg bg-white">
+                <img src="/images/Screenshot (38).png" alt="Nova Template" class="w-full h-48 object-cover">
+                <div class="p-4 text-center">
+                    <h2 class="text-2xl font-semibold mb-2">Nova</h2>
+                    <a href="/templates/Nova business template 3/Nova/index.html" target="_blank" class="inline-block mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                        Preview
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        function selectTemplate(category, templateName) {
+          const userEmail = localStorage.getItem('userEmail');
+      
+          if (!userEmail) {
+            alert('User email not found. Please login again.');
+            return;
+          }
+      
+          fetch('/api/select-template', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              userEmail: userEmail,
+              category: category,
+              templateName: templateName
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Template selected successfully:', data);
+            window.location.href = `/editor?email=${encodeURIComponent(userEmail)}`;
+          })
+          .catch(error => {
+            console.error('Error selecting template:', error);
+          });
+        }
+      </script>
+      
+</body>
+<% include('./partials/footer') %>

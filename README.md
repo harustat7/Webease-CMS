@@ -8,7 +8,7 @@ WebEase is a powerful and user-friendly Content Management System designed for c
 <h2>🚀 Features </h2>
 
 <h3>No Code Website Creation</h3> 
-<p>Choose a template, enter your domain name, and get your website in minutes.</p>
+Choose a template, enter your domain name, and get your website in minutes.
 <h3>Pre-built Templates </h3> 
 <p>Business templates with editable HTML, CSS, and JS for easy customization.</p>
 <h3>Interactive Editor</h3> 

@@ -19,8 +19,8 @@ WebEase is a powerful and user-friendly Content Management System designed for c
 <p>Mobile friendly templates ready for all screen sizes.</p>
 
 <h2>🛠️ Tech Stack</h2>
-Frontend: HTML, CSS, Tailwind CSS, JavaScript
-Backend: Node.js, Express.js, PHP (for specific modules)
-Database: MongoDB
-Authentication: JWT / bcrypt (or similar libraries)
-APIs: Domain availability check via third-party APIs (e.g., api-ninjas)
+Frontend: HTML, CSS, Tailwind CSS, JavaScript <br>
+Backend: Node.js, Express.js <br>
+Database: MongoDB <br>
+Authentication: JWT / bcrypt <br>
+APIs: Domain availability check via third-party APIs 

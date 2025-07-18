@@ -1,11 +1,13 @@
-# 🌐 WebEase – No-Code Website Builder
+# WebEase – No-Code Website Builder
+
+**Deployed App:**:[https://webease-cms.onrender.com/](https://webease-cms.onrender.com/)
 <p>
 WebEase is a powerful and user-friendly Content Management System designed for creators, entrepreneurs, and small businesses who want to create professional websites without writing a single line of code. With WebEase, users can choose from customizable templates, update content, and launch websites seamlessly through a guided interface.
 </p>
 
 </br>
 
-<h2>🚀 Features </h2>
+<h2>Features </h2>
 
 <h4>No Code Website Creation:</h4> 
 Choose a template, enter your domain name, and get your website in minutes.
